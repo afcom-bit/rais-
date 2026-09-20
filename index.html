@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Radio Islam Sragen</title>
     
-    <!-- Tag Icon (Favicon) Browser -->
+    <!-- POSISI ICON YANG BENAR & AMAN (Tidak merusak kode bawah) -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="favicon.ico">
@@ -93,52 +93,36 @@
             font-weight: 500;
         }
 
-        /* TOMBOL UTAMA BYPASS KECERDASAN AUDIO ANDROID */
-        .play-btn {
-            background: linear-gradient(135deg, #CAA347 0%, #A37F2C 100%);
-            color: #0e0e0e;
-            border: 1px solid #FFDF92;
-            padding: 14px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
+        /* Pembungkus Jendela (Masking / Topeng Pemotong) */
+        .iframe-container {
+            position: relative;
             width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(202, 163, 71, 0.4);
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .play-btn:active {
-            transform: scale(0.98);
-        }
-        .play-btn.playing {
-            background: linear-gradient(135deg, #E23D28 0%, #A82414 100%);
-            color: #ffffff;
-            border: 1px solid #FFA399;
-            box-shadow: 0 4px 15px rgba(226, 61, 40, 0.4);
+            border-radius: 12px;
+            overflow: hidden !important;
+            background: transparent !important;
+            border: 1px solid rgba(255, 255, 254, 0.4);
+            height: 83px;
+            --crop-left: -50px;
+            --crop-top: -135px;
         }
 
-        /* Status Loading Saat Koneksi Mengudara */
-        .status-text {
-            font-size: 12px;
-            color: #EDDDB8;
-            margin-top: -12px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            display: none;
+        /* Aplikasi Target yang Dibungkus */
+        iframe {
+            position: absolute;
+            width: 480px;
+            height: 445px;
+            border: none;
+            overflow: hidden !important;
+            touch-action: none;
+            left: var(--crop-left);
+            top: var(--crop-top);
+            z-index: 5;
         }
 
+        /* KONFIGURASI AREA TEKS DI BAWAH KARTU */
         .info-text-container {
             width: 310px; 
-            height: 330px; /* Sedikit disesuaikan agar proporsional dengan tombol baru */
+            height: 352px;
             overflow-y: auto; 
             overflow-x: hidden;
             text-align: justify; 
@@ -171,6 +155,7 @@
             border-radius: 10px;
         }
 
+        /* Gaya Khusus untuk Teks Tambahan @dev.afcom */
         .dev-tag {
             text-align: center;
             font-size: 13px;
@@ -191,16 +176,12 @@
         <h2 class="station-title">Radio Islam Sragen</h2>
         <p class="station-sub">Lantunan Murotal dan Kajian Islam Ilmiah</p>
         
-        <!-- PEMUTAR UTAMA (Gunakan Native HTML5 Audio Bypass Sistem Android) -->
-        <button id="radioControl" class="play-btn" onclick="toggleRadio()">
-            <span id="btnIcon">▶</span> <span id="btnText">PUTAR RADIO</span>
-        </button>
-        <div id="statusIndicator" class="status-text">Menghubungkan ke siaran...</div>
-        
-        <!-- Element Audio Tersembunyi (Tanpa Iframe) -->
-        <audio id="audioPlayer" preload="none"></audio>
+        <!-- IFRAME ASLI YANG SUDAH BERHASIL (Ditutup dengan benar) -->
+        <div class="iframe-container" style="margin-bottom: 20px;">
+            <iframe src="https://radioislam.my.id" allow="autoplay; encrypted-media" scrolling="no" title="Streamy Player"></iframe>
+        </div>
 
-        <!-- AREA TEKS DI DALAM KARTU PEMUTAR BAGIAN BAWAH -->
+        <!-- AREA TEKS INFORMASI YANG SUDAH DIRAPIKAN -->
         <div class="info-text-container">
             <p>══════📻🆁🅰🅸🆂</p>
             <p></p>
@@ -212,62 +193,6 @@
         <!-- Tag Developer -->
         <div class="dev-tag">@dev.afcom</div>
     </div>
-
-    <!-- JAVASCRIPT REVOLUSIONER UNTUK BYPASS AUDIO NATIVE ANDROID -->
-    <script>
-        let isPlaying = false;
-        const audio = document.getElementById('audioPlayer');
-        const btn = document.getElementById('radioControl');
-        const btnIcon = document.getElementById('btnIcon');
-        const btnText = document.getElementById('btnText');
-        const statusText = document.getElementById('statusIndicator');
-
-        // URL Direct Audio Stream dari server Streamy1 Radio Islam Sragen Anda
-        const directStreamUrl = "https://radioislam.my.id";
-
-        function toggleRadio() {
-            if (!isPlaying) {
-                statusText.style.display = "block";
-                statusText.innerText = "Menghubungkan ke siaran...";
-                
-                // Set source langsung ke audio native (Bukan Iframe)
-                audio.src = directStreamUrl;
-                audio.load();
-                
-                // Jalankan audio lewat interaksi ketukan jari resmi pengguna Android
-                audio.play()
-                .then(() => {
-                    statusText.innerText = "• LIVE MENGUDARA";
-                    btnText.innerText = "HENTIKAN RADIO";
-                    btnIcon.innerText = "⏹";
-                    btn.classList.add('playing');
-                    isPlaying = true;
-                })
-                .catch(error => {
-                    console.error("Playback error:", error);
-                    statusText.innerText = "Gagal memuat siaran. Coba lagi.";
-                });
-
-            } else {
-                // Hentikan siaran total dan kosongkan buffer agar hemat kuota data Android
-                audio.pause();
-                audio.src = ""; 
-                statusText.style.display = "none";
-                btnText.innerText = "PUTAR RADIO";
-                btnIcon.innerText = "▶";
-                btn.classList.remove('playing');
-                isPlaying = false;
-            }
-        }
-
-        // Monitoring jika stream terputus di tengah jalan
-        audio.addEventListener('waiting', () => {
-            if(isPlaying) statusText.innerText = "Buffering / Memuat ulang...";
-        });
-        audio.addEventListener('playing', () => {
-            if(isPlaying) statusText.innerText = "• LIVE MENGUDARA";
-        });
-    </script>
 
 </body>
 </html>
