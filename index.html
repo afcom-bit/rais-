@@ -8,13 +8,14 @@
     <meta name="theme-color" content="#1b4d3e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <style>
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0e0e0e 0%, #1b4d3e 100%); /* TETAP: Sesuai kode asli */
+            background: linear-gradient(135deg, #0e0e0e 0%, #1b4d3e 100%);
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -30,25 +31,19 @@
         }
 
         .player-card {
-            /* DIUBAH: Menerapkan efek double glow (pantulan putih + emas cerah bergeser ke atas) */
-            background: 
-                linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.35) 30%, rgba(255, 255, 255, 0.05) 38%, transparent 50%),
-                linear-gradient(135deg, rgba(255, 223, 128, 0.45) 0%, rgba(255, 215, 0, 0.2) 20%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 215, 0, 0.05) 35%, transparent 60%),
-                rgba(255, 248, 220, 0.18);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0.35) 45%, rgba(255, 255, 255, 0.05) 52%, rgba(255, 255, 255, 0.15) 100%),
+                rgba(255, 255, 255, 0.22);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            
-            /* DIUBAH: Garis tepi diperkuat dengan gradasi emas putih transparan yang serasi */
-            border: 1px solid rgba(255, 235, 170, 0.65);
+            border: 1px solid rgba(255, 255, 244, 0.6);
             padding: 25px;
             border-radius: 20px;
-            
-            /* DIUBAH: Menggunakan bayangan pendaran ganda luar-dalam yang lebih cerah */
             box-shadow:
-                inset 0 1px 3px rgba(255, 255, 255, 0.75),
-                inset 0 -1px 2px rgba(255, 223, 128, 0.25),
-                0 10px 35px 0 rgba(184, 134, 14, 0.25),
-                0 0 20px 3px rgba(255, 223, 128, 0.22);
+                inset 0 1px 2px rgba(255, 255, 255, 0.6),
+                inset 0 -1px 2px rgba(255, 255, 255, 0.2),
+                0 10px 25px rgba(0,0,0,0.5),
+                0 0 18px 2px rgba(255, 255, 255, 0.18);
             text-align: center;
             width: 360px;
             border-top: 5px solid #CAA347;
@@ -66,12 +61,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Amiri', 'Traditional Arabic', 'Segoe UI', serif;
-            font-size: 26px;
-            color: #1e1b15;
-            font-weight: bold;
-            direction: rtl;
+            overflow: hidden;
             box-shadow: 0 0 20px rgba(202, 163, 71, 0.4);
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .station-title {
@@ -94,14 +92,8 @@
             width: 100%;
             border-radius: 12px;
             overflow: hidden !important;
-            
-            /* DIUBAH: Frame pembungkus kini menyelaraskan efek double glow agar serasi dengan kartu utama */
-            background: 
-                linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 40%),
-                linear-gradient(135deg, rgba(255, 223, 128, 0.35) 0%, transparent 50%),
-                rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(255, 235, 170, 0.45);
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            background: transparent !important;
+            border: 1px solid rgba(255, 255, 254, 0.4);
             height: 83px;
             --crop-left: -50px;
             --crop-top: -135px;
@@ -172,7 +164,9 @@
 
     <div class="player-card">
 
-        <div class="logo-placeholder">رَائِس</div>
+        <div class="logo-placeholder">
+            <img src="icon-192.png" alt="Radio Islam Sragen">
+        </div>
 
         <h2 class="station-title">Radio Islam Sragen</h2>
 
@@ -291,12 +285,28 @@
         );
 
         if ('serviceWorker' in navigator) {
+
             window.addEventListener('load', () => {
+
                 navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('SW Registered', reg))
-                .catch(err => console.error('SW Failed', err));
+
+                .then(reg =>
+                    console.log(
+                        'PWA Manual Crop Sukses Diaktifkan!'
+                    )
+                )
+
+                .catch(err =>
+                    console.log(
+                        'PWA Gagal:',
+                        err
+                    )
+                );
+
             });
+
         }
     </script>
+
 </body>
 </html>
