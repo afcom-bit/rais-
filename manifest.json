@@ -1,25 +1,29 @@
 {
+  "short_name": "RAIS",
   "name": "Radio Islam Sragen",
-  "short_name": "RI Sragen",
-  "description": "Lantunan Murotal dan Kajian Islam Ilmiah Radio Islam Sragen",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#0e0e0e",
-  "theme_color": "#1b4d3e",
-  "categories": ["entertainment", "education"],
+  "description": "Aplikasi PWA Streaming Radio Islam Sragen - Lantunan Murotal dan Kajian Islam Ilmiah",
   "icons": [
     {
+      "src": "favicon.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
       "src": "icon-192.png",
-      "sizes": "192x192",
       "type": "image/png",
+      "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
-      "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "sizes": "512x512",
+      "purpose": "any"
     }
-  ]
+  ],
+  "start_url": "./index.html",
+  "background_color": "#0e0e0e",
+  "theme-color": "#1b4d3e",
+  "display": "standalone",
+  "orientation": "portrait"
 }
