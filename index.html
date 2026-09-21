@@ -21,7 +21,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Diubah ke center agar HP pas di tengah */
+            justify-content: flex-start;
+            padding-top: 10px;
             overflow: hidden !important;
             position: fixed;
             touch-action: none;
@@ -29,61 +30,6 @@
             box-sizing: border-box;
         }
 
-        /* FRAME BINGKAI HP ANDROID */
-        .android-device {
-            position: relative;
-            width: 390px; /* Sedikit lebih lebar dari card player */
-            height: 780px; /* Proporsi panjang HP modern */
-            background: #151515; /* Warna fisik casing HP */
-            border: 12px solid #2d2d2d; /* Bezel luar HP */
-            border-radius: 40px; /* Sudut melengkung khas Android */
-            box-shadow: 
-                0 25px 50px -12px rgba(0, 0, 0, 0.7),
-                inset 0 2px 3px rgba(255,255,255,0.2),
-                inset 0 -2px 3px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 35px; /* Memberi ruang untuk Notch/Kamera atas */
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-
-        /* KAMERA DAN SPEAKER ATAS (NOTCH) */
-        .android-notch {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 140px;
-            height: 25px;
-            background: #2d2d2d;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .android-speaker {
-            width: 40px;
-            height: 4px;
-            background: #555;
-            border-radius: 2px;
-        }
-
-        .android-camera {
-            width: 8px;
-            height: 8px;
-            background: #111;
-            border-radius: 50%;
-            border: 1px solid #444;
-        }
-
-        /* DAERAH LAYAR UTAMA DI DALAM HP */
         .player-card {
             background:
                 linear-gradient(
@@ -102,7 +48,7 @@
             border: 1px solid rgba(255, 255, 244, 0.6);
 
             padding: 25px;
-            border-radius: 25px; /* Disesuaikan agar serasi dengan lengkungan HP */
+            border-radius: 20px;
 
             box-shadow:
                 inset 0 1px 2px rgba(255, 255, 255, 0.6),
@@ -111,15 +57,18 @@
                 0 0 18px 2px rgba(255, 255, 255, 0.18);
 
             text-align: center;
-            width: 350px; /* Sedikit disesuaikan agar pas di dalam frame */
+            width: 360px;
 
             border-top: 5px solid #F8FFFD;
 
             box-sizing: border-box;
             touch-action: none;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
+
+        /* ==============================
+           AREA LOGO
+        ============================== */
 
         .logo-area {
             position: relative;
@@ -162,6 +111,10 @@
             display: block;
         }
 
+        /* ==============================
+           RAIS DI ATAS LOGO
+        ============================== */
+
         .station-sub {
             position: absolute;
             left: 0;
@@ -188,26 +141,61 @@
             text-align: center;
         }
 
+        /* ==============================
+           FRAME GAYA HP ANDROID
+        ============================== */
+
         .iframe-container {
             position: absolute;
+
             left: 0;
             bottom: 5px;
 
             width: 100%;
             height: 83px;
 
-            border-radius: 12px;
+            border-radius: 18px;
 
             overflow: hidden !important;
 
-            background: transparent !important;
+            background: #111 !important;
 
-            border: 1px solid rgba(255, 255, 254, 0.4);
+            border: 2px solid #222;
+
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.15),
+                0 3px 10px rgba(0,0,0,0.55);
 
             z-index: 4;
 
             --crop-left: -50px;
             --crop-top: -135px;
+        }
+
+        /* Kamera / sensor HP */
+        .iframe-container::before {
+            content: "";
+
+            position: absolute;
+
+            top: 5px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 35px;
+            height: 5px;
+
+            background: #050505;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.08);
+
+            z-index: 20;
+
+            pointer-events: none;
         }
 
         iframe {
@@ -219,6 +207,7 @@
             border: none;
 
             overflow: hidden !important;
+
             touch-action: none;
 
             left: var(--crop-left);
@@ -227,10 +216,14 @@
             z-index: 5;
         }
 
+        /* ==============================
+           INFORMASI
+        ============================== */
+
         .info-text-container {
-            width: 300px;
+            width: 310px;
             height: auto;
-            max-height: 260px; /* Disesuaikan sedikit agar pas dengan rasio tinggi layar HP */
+            max-height: 352px;
 
             overflow-y: auto;
             overflow-x: hidden;
@@ -271,91 +264,231 @@
             border-radius: 10px;
         }
 
+        /* ==============================
+           DEVELOPER
+        ============================== */
+
         .dev-tag {
             text-align: center;
-            font-size: 13px;
-            color: #EDDDB8;
-            margin-top: 15px;
-            width: 300px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            user-select: none;
-        }
 
-        /* TOMBOL NAVIGASI BAWAH ANDROID (GARIS/HOME BAR) */
-        .android-navbar {
-            position: absolute;
-            bottom: 10px;
-            width: 120px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 3px;
-            z-index: 10;
+            font-size: 13px;
+
+            color: #EDDDB8;
+
+            margin-top: 21px;
+
+            width: 310px;
+
+            font-weight: 400;
+
+            letter-spacing: 0.5px;
+
+            user-select: none;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- CONTAINER UTAMA: FRAME HP ANDROID -->
-    <div class="android-device">
-        
-        <!-- Bagian Hardware Atas Kamera + Speaker -->
-        <div class="android-notch">
-            <div class="android-speaker"></div>
-            <div class="android-camera"></div>
-        </div>
+    <div class="player-card">
 
-        <!-- Aplikasi Card Player di Dalam Layar -->
-        <div class="player-card">
+        <div class="logo-area">
 
-            <div class="logo-area">
-                <div class="logo-placeholder">
-                    <img src="./icon-192.png" alt="Radio Islam Sragen">
-                </div>
-                <p class="station-sub">RAIS</p>
-                <div class="iframe-container">
-                    <iframe
-                        src="https://streamy1.radioislam.my.id/player/sragen-s-station/"
-                        allow="autoplay; encrypted-media"
-                        scrolling="no"
-                        title="Streamy Player">
-                    </iframe>
-                </div>
+            <div class="logo-placeholder">
+                <img
+                    src="./icon-192.png"
+                    alt="Radio Islam Sragen">
             </div>
 
-            <div class="info-text-container">
-                <p>══════📻🆁🅰🅸🆂</p>
-                <p></p>
-                <p>📚 Qasidah</p>
-                <p>   Unwanulhikam</p>
-                <p>🎙 Al-Ustadz&nbsp; Usamah&nbsp; bin</p>
-                <p>   Faishol Mahri&nbsp; حفظه ا لله</p>
-                <p></p>
-                <p>📚 Tausiyah</p>
-                <p>🎙 Al-Ustadz Huda حفظه ا لله</p>
-                <p></p>
-                <p>📌 Masjid Alfalah,&nbsp;Sragen</p>
-                <p>   Ahad Tgl 20 Juli 2025</p>
-                <p></p>
-                <p></p>
-                <p></p>
-            </div>
+            <p class="station-sub">
+                RAIS
+            </p>
 
-            <div class="dev-tag">
-                dev.@fcom
+            <div class="iframe-container">
+
+                <iframe
+                    src="https://streamy1.radioislam.my.id/player/sragen-s-station/"
+                    allow="autoplay; encrypted-media"
+                    scrolling="no"
+                    title="Streamy Player">
+                </iframe>
+
             </div>
 
         </div>
 
-        <!-- Garis Navigasi Bawah Layar -->
-        <div class="android-navbar"></div>
+
+        <div class="info-text-container">
+
+            <p>══════📻🆁🅰🅸🆂</p>
+
+            <p></p>
+
+            <p>📚 Qasidah</p>
+
+            <p>   Unwanulhikam</p>
+
+            <p>🎙 Al-Ustadz&nbsp; Usamah&nbsp; bin</p>
+
+            <p>   Faishol Mahri&nbsp; حفظه ا لله</p>
+
+            <p></p>
+
+            <p>📚 Tausiyah</p>
+
+            <p>🎙 Al-Ustadz Huda حفظه ا لله</p>
+
+            <p></p>
+
+            <p>📌 Masjid Alfalah,&nbsp;Sragen</p>
+
+            <p>   Ahad Tgl 20 Juli 2025</p>
+
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+
+        </div>
+
+
+        <div class="dev-tag">
+            dev.@fcom
+        </div>
 
     </div>
 
+
     <script>
+
         function rapikanTextContainer() {
-            const container = document.querySelector('.info-text-container');
+
+            const container =
+                document.querySelector('.info-text-container');
+
             if (!container) return;
 
-            const paragraphs = Array.from(container.querySelectorAll('p'));
+            const paragraphs =
+                Array.from(
+                    container.querySelectorAll('p')
+                );
+
+            let lastFilled = -1;
+
+            for (
+                let i = 0;
+                i < paragraphs.length;
+                i++
+            ) {
+
+                const teks =
+                    paragraphs[i].textContent.trim();
+
+                if (teks !== '') {
+                    lastFilled = i;
+                }
+            }
+
+            paragraphs.forEach(
+                (p, index) => {
+
+                    if (index > lastFilled) {
+
+                        p.style.display = 'none';
+
+                    } else {
+
+                        p.style.display = '';
+
+                    }
+
+                }
+            );
+
+            container.style.height = 'auto';
+
+            const tinggi =
+                container.scrollHeight;
+
+            if (tinggi > 352) {
+
+                container.style.height =
+                    '352px';
+
+            } else {
+
+                container.style.height =
+                    tinggi + 'px';
+
+            }
+
+        }
+
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            function() {
+
+                rapikanTextContainer();
+
+            }
+        );
+
+
+        document.addEventListener(
+            'touchmove',
+            function(e) {
+
+                if (
+                    e.target.closest(
+                        '.info-text-container'
+                    )
+                ) {
+                    return;
+                }
+
+                if (e.scale !== 1) {
+                    e.preventDefault();
+                }
+
+            },
+            {
+                passive: false
+            }
+        );
+
+
+        if ('serviceWorker' in navigator) {
+
+            window.addEventListener(
+                'load',
+                () => {
+
+                    navigator.serviceWorker
+                        .register('./sw.js')
+
+                        .then(
+                            reg =>
+                                console.log(
+                                    'PWA Manual Crop Sukses Diaktifkan!'
+                                )
+                        )
+
+                        .catch(
+                            err =>
+                                console.log(
+                                    'PWA Gagal:',
+                                    err
+                                )
+                        );
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
